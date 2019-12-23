@@ -3,12 +3,22 @@ import { Injectable } from '@nestjs/common';
 import { AuthPayload } from './interfaces/auth-payload.interface';
 import { TokenObject } from './classes/token-object';
 import { CommitDto } from './dto/commit.dto';
+import { ConfigService } from 'src/config/config.service';
 
 @Injectable()
 export class GithubService {
 
-    private readonly clientId = '5a4442d08297067abfef';
-    private readonly clientSecret = '2a49003dad2e139b4109a441a793c7d4dcec189c';
+    private clientId: string;
+    private clientSecret: string;
+    private githubUrl: string;
+    private githubApiUrl: string;
+
+    constructor(private configService: ConfigService) {
+        this.clientId = configService.GITHUB_CLIENT_ID;
+        this.clientSecret = configService.GITHUB_CLIENT_SECRET;
+        this.githubUrl = configService.GITHUB_URL;
+        this.githubApiUrl = configService.GITHUB_API_URL;
+    }
 
     async getAuthToken(body: AuthPayload): Promise<TokenObject> {
         const params = {
@@ -19,7 +29,7 @@ export class GithubService {
 
         const result = await axios({
             method: 'POST',
-            url: 'https://github.com/login/oauth/access_token',
+            url: `${this.githubUrl}/login/oauth/access_token`,
             params,
         }).catch((err) => {
             throw new Error(err);
@@ -36,7 +46,7 @@ export class GithubService {
                 Authorization: accessToken,
                 Accept: 'application/vnd.github.v3+json',
             },
-            url: 'https://api.github.com/repos/striko-bild/gitception/commits',
+            url: `${this.githubApiUrl}/repos/striko-bild/gitception/commits`,
         }).catch((err) => {
             throw new Error(err);
         });
