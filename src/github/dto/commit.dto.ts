@@ -1,13 +1,27 @@
 import { CommitInfo } from '../interfaces/commit-list.interface';
 import * as moment from 'moment';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CommitDto {
+    @ApiProperty()
     sha: string;
+
+    @ApiProperty()
     author: string;
+
+    @ApiProperty()
     authoredTime: string;
+
+    @ApiProperty()
     committer: string;
+
+    @ApiProperty()
     commitTime: string;
+
+    @ApiProperty()
     commitMessage: string;
+
+    @ApiProperty()
     url: string;
 
     constructor(commitInfo: CommitInfo) {
