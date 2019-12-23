@@ -3,12 +3,22 @@
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
+    "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./"
+    "baseUrl": "./",
   },
-  "exclude": ["node_modules"]
+  "paths": {
+    "@App/*": [
+      "src/*"
+    ],
+  },
+  "exclude": ["node_modules"],
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ]
 }

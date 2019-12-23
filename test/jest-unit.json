@@ -1,0 +1,15 @@
+{
+    "moduleFileExtensions": ["js", "json", "ts"],
+    "rootDir": ".",
+    "testEnvironment": "node",
+    "testRegex": ".unit-spec.ts$",
+    "moduleDirectories": ["node_modules", "src"],
+    "moduleNameMapper": {
+      "src/(.*)": "<rootDir>/../src/$1",
+      "__mocks__/(.*)": "<rootDir>/__mocks__/$1"
+    },
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    }
+  }
+  

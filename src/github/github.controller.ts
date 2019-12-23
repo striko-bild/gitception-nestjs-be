@@ -27,6 +27,9 @@ export class GithubController {
     @ApiResponse({ status: 400, description: 'Not Found.', type: BadRequestException })
     @ApiResponse({ status: 500, description: 'Internal server error.', type: InternalServerErrorException })
     async auth(@Body() body: AuthPayload): Promise<TokenObject> {
+        if (!body.code) {
+            throw new BadRequestException('Code not specified');
+        }
         const token = await this.githubService.getAuthToken(body);
         return token;
     }

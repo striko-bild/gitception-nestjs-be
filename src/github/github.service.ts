@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { AuthPayload } from './interfaces/auth-payload.interface';
 import { TokenObject } from './classes/token-object';
 import { CommitDto } from './dto/commit.dto';
@@ -20,6 +20,9 @@ export class GithubService {
         this.githubApiUrl = configService.GITHUB_API_URL;
     }
 
+    /*
+    * Returns access token based on the code passed after Github login
+    */
     async getAuthToken(body: AuthPayload): Promise<TokenObject> {
         const params = {
             client_id: this.clientId,
@@ -35,12 +38,19 @@ export class GithubService {
             throw new Error(err);
         });
 
-        const data = result && new TokenObject(result.data);
+        if (!result || !result.data || result.data.includes('error')) {
+            throw new BadRequestException(result.data);
+        }
+        const data = new TokenObject(result.data);
+
         return data;
     }
 
+    /*
+    * Returns a list of all commits
+    */
     async getCommitList(accessToken: string): Promise<CommitDto[]> {
-        const res = await axios({
+        const result = await axios({
             method: 'GET',
             headers: {
                 Authorization: accessToken,
@@ -51,7 +61,12 @@ export class GithubService {
             throw new Error(err);
         });
 
-        return res && res.data.map((commitInfo) => new CommitDto(commitInfo));
+        const data = result && result.data;
+        if (!data) {
+            throw new NotFoundException();
+        }
+
+        return data.map((commitInfo) => new CommitDto(commitInfo));
     }
 
 }

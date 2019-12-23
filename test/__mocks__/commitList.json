@@ -1,0 +1,20 @@
+[
+    {
+        "sha": "952f2aa3b1c44d7237d9dfefa79bba6122bbb190",
+        "author": "StrikoBild striko@bild-studio.net",
+        "authoredTime": "December 23rd 2019, 1:52:14 pm",
+        "committer": "StrikoBild striko@bild-studio.net",
+        "commitTime": "December 23rd 2019, 2:13:55 pm",
+        "commitMessage": "Config service",
+        "url": "https://github.com/striko-bild/gitception/commit/952f2aa3b1c44d7237d9dfefa79bba6122bbb190"
+    },
+    {
+        "sha": "0bbf9c6dbe35ae2dbf461e2e365107bc1da701ef",
+        "author": "StrikoBild striko@bild-studio.net",
+        "authoredTime": "December 23rd 2019, 12:06:03 pm",
+        "committer": "StrikoBild striko@bild-studio.net",
+        "commitTime": "December 23rd 2019, 12:06:03 pm",
+        "commitMessage": "Move app component styles",
+        "url": "https://github.com/striko-bild/gitception/commit/0bbf9c6dbe35ae2dbf461e2e365107bc1da701ef"
+    }
+]
